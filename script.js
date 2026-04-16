@@ -1,42 +1,30 @@
-// Global App State
+// Global App State (Task 10 - React Readiness)
 const state = {
     products: [],
-    filteredProducts: [],
     cart: 0
 };
-
-// UI Elements
 const grid = document.getElementById('product-grid');
 const categoryMenu = document.getElementById('category-select');
 const loader = document.getElementById('loader');
 const errorUI = document.getElementById('error-msg');
 const cartBadge = document.getElementById('cart-count');
-
-/**
- * Task 1 & 7: Fetch Data & Error Handling
- */
 async function initApp() {
     try {
         const response = await fetch('https://fakestoreapi.com/products');
-        if (!response.ok) throw new Error('Could not fetch products. Try again later.');
-        
         const data = await response.json();
-        state.products = data;
-        state.filteredProducts = [...data];
+        console.log("Data loaded:", data); 
 
-        populateCategories(data);
-        renderProducts(state.filteredProducts);
+        state.products = data; 
+        populateCategories(data); // Dropdown bharna
+        renderProducts(data); // <--- YE SABSE ZARURI HAI
     } catch (err) {
-        errorUI.innerText = err.message;
-        errorUI.classList.remove('d-none');
+        console.error(err);
     } finally {
         loader.classList.add('d-none');
     }
 }
 
-/**
- * Task 8: Reusable Product Renderer
- */
+// Reusable Renderer (Task 8)
 function renderProducts(items) {
     grid.innerHTML = items.length > 0 
         ? items.map(p => `
@@ -58,9 +46,7 @@ function renderProducts(items) {
         : `<div class="w-100 text-center py-5"><h5>No products found.</h5></div>`;
 }
 
-/**
- * Task 2, 3, 5: Integrated Filter, Search, and Sort
- */
+// Filters & Sort (Task 2, 3, 5)
 function handleFilterSort() {
     const search = document.getElementById('search-input').value.toLowerCase();
     const category = categoryMenu.value;
@@ -78,9 +64,7 @@ function handleFilterSort() {
     renderProducts(result);
 }
 
-/**
- * Task 2: Dynamic Category Setup
- */
+// Extract Categories (Task 2)
 function populateCategories(data) {
     const categories = ['all', ...new Set(data.map(p => p.category))];
     categoryMenu.innerHTML = categories.map(cat => 
@@ -88,14 +72,10 @@ function populateCategories(data) {
     ).join('');
 }
 
-/**
- * Task 4: Detailed View (Modal)
- */
+// Details Modal (Task 4)
 function showInfo(id) {
     const p = state.products.find(item => item.id === id);
-    const content = document.getElementById('modal-body-content');
-
-    content.innerHTML = `
+    document.getElementById('modal-body-content').innerHTML = `
         <div class="modal-header border-0 pb-0">
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
@@ -109,22 +89,18 @@ function showInfo(id) {
             </div>
         </div>
     `;
-
     new bootstrap.Modal(document.getElementById('productModal')).show();
 }
 
-/**
- * Task 6: Add to Cart Simulation
- */
+// Cart Logic (Task 6)
 function addToCartUI() {
     state.cart++;
     cartBadge.innerText = state.cart;
 }
 
-// Event Listeners for Real-Time Interaction
+// Event Listeners
 document.getElementById('search-input').addEventListener('input', handleFilterSort);
 categoryMenu.addEventListener('change', handleFilterSort);
 document.getElementById('sort-select').addEventListener('change', handleFilterSort);
 
-// Bootstrap App
 initApp();
