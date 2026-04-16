@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickCart | Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">🛒 QuickCart</a>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-2">Cart:</span>
+                <span id="cart-count" class="badge bg-primary rounded-pill fs-6">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row g-3 mb-4 p-3 bg-white rounded shadow-sm">
+            <div class="col-md-4">
+                <input type="text" id="search-input" class="form-control" placeholder="Search product name...">
+            </div>
+            <div class="col-md-4">
+                <select id="category-select" class="form-select">
+                    <option value="all">All Categories</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="sort-select" class="form-select">
+                    <option value="default">Default Sort</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="status-area" class="text-center my-5">
+            <div id="loader" class="spinner-border text-primary" role="status"></div>
+            <div id="error-msg" class="alert alert-danger d-none mt-3" role="alert"></div>
+        </div>
+
+        <div id="product-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"></div>
+    </div>
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="modal-body-content">
+                </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
