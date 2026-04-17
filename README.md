@@ -1,7 +1,7 @@
 # QuickCart | Admin Dashboard 🛒
 
 A modern, responsive e-commerce admin dashboard built with **Vanilla JavaScript**, **Bootstrap 5**, and **FakeStoreAPI**. This project was developed as part of a technical assessment to demonstrate skills in API integration, DOM manipulation, and responsive UI design.
-
+http://127.0.0.1:5501/index.html
 ## 🚀 Features
 
 - **Dynamic Data Fetching:** Real-time product data fetched from `fakestoreapi.com`.
